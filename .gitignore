@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/PronounceApi.ApiService/appsettings.Development.json
+/PronounceApi.AppHost/appsettings.Development.json
+/PronounceApi.Web/appsettings.Development.json
