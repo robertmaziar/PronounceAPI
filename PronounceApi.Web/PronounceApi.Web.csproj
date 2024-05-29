@@ -20,8 +20,4 @@
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.5.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Layouts\" />
-  </ItemGroup>
-
 </Project>
