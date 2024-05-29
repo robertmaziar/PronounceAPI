@@ -1,12 +1,11 @@
 ﻿@page "/weather"
+@rendermode InteractiveServer
 @attribute [StreamRendering(true)]
 @attribute [OutputCache(Duration = 5)]
 
 @inject WeatherApiClient WeatherApi
 
-<PageTitle>Weather</PageTitle>
-
-<h1>Weather</h1>
+<Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom">Weather Test</Heading>
 
 <p>This component demonstrates showing data loaded from a backend API service.</p>
 

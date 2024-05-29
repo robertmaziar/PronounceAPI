@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PronounceApi.AppHost", "PronounceApi.AppHost\PronounceApi.AppHost.csproj", "{F9F0D57D-DABC-49AD-BF09-2F6363BA394C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PronounceApi.AppHost", "PronounceApi.AppHost\PronounceApi.AppHost.csproj", "{F9F0D57D-DABC-49AD-BF09-2F6363BA394C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PronounceApi.ServiceDefaults", "PronounceApi.ServiceDefaults\PronounceApi.ServiceDefaults.csproj", "{E6EC3F19-B65E-48CD-85AF-164191852042}"
 EndProject

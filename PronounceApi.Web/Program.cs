@@ -1,3 +1,6 @@
+using Blazorise;
+using Blazorise.Bootstrap5;
+using Blazorise.Icons.FontAwesome;
 using PronounceApi.Web;
 using PronounceApi.Web.Components;
 
@@ -10,6 +13,8 @@ builder.AddRedisOutputCache("cache");
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+AddBlazorise(builder.Services);
 
 builder.Services.AddHttpClient<WeatherApiClient>(client =>
     {
@@ -40,3 +45,13 @@ app.MapRazorComponents<App>()
 app.MapDefaultEndpoints();
 
 app.Run();
+
+void AddBlazorise(IServiceCollection services)
+{
+    services.AddBlazorise(options =>
+    {
+        options.Immediate = true;
+    })
+    .AddBootstrap5Providers()
+    .AddFontAwesomeIcons();
+}
