@@ -1,4 +1,7 @@
 ﻿@page "/"
+@using Stripe.Checkout
+@inject IConfiguration Configuration
+@inject NavigationManager NavigationManager
 
 <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom">Welcome!</Heading>
 
@@ -28,3 +31,73 @@
         Please visit the official <Anchor To="https://blazorise.com/docs/" Target="Target.Blank">Blazorise Documentation</Anchor> to learn more about the available components.
     </Paragraph>
 </Alert>
+
+<Heading Size="HeadingSize.Is3" Margin="Margin.Is3.FromBottom">Stripe Payment Integration</Heading>
+
+<UnorderedList>
+    @foreach (var product in _productsInCart)
+    {
+        <UnorderedListItem>@product.Id - @product.Name - @product.Price.ToString("C")</UnorderedListItem>
+    }
+</UnorderedList>
+<Divider />
+<Label>Total Amount: @_productsInCart.Sum(o => o.Price).ToString("C")</Label>
+<Divider />
+<form method="post" @onsubmit="CheckoutAsync" @formname="checkout-form">
+    <AntiforgeryToken />
+    <Button Type="ButtonType.Submit" Color="Color.Primary">Checkout</Button>
+</form>
+
+@code {
+    private Product[] _productsInCart = [];
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _productsInCart = new Product[]
+        {
+            new Product(1, "Basic Plan Test", 1)
+        };
+    }
+
+    private async Task CheckoutAsync()
+    {
+        var domain = NavigationManager.BaseUri;
+
+        // var lineItems = _productsInCart.Select(o => new SessionLineItemOptions)
+
+        var options = new SessionCreateOptions
+            {
+                LineItems = new List<SessionLineItemOptions>
+                {
+                  new SessionLineItemOptions
+                  {
+                    // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                    Price = Configuration.GetValue<string>("Secrets:Stripe:PriceIds:BasicPlan"),
+                  },
+                },
+                Mode = "subscription",
+                SuccessUrl = domain + "payment-success?session-id={CHECKOUT_SESSION_ID}",
+                CancelUrl = domain,
+            };
+
+        var service = new SessionService();
+        Session session = service.Create(options);
+
+        NavigationManager.NavigateTo(session.Url);
+    }
+
+    class Product
+    {
+        public Product(int id, string name, decimal price)
+        {
+            Id = id;
+            Name = name;
+            Price = price;
+        }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+    }
+}

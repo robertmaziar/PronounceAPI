@@ -7,8 +7,11 @@ using PronounceApi.Web;
 using PronounceApi.Web.Components;
 using PronounceApi.Web.Components.Account;
 using PronounceApi.Web.Data;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
+
+StripeConfiguration.ApiKey = builder.Configuration.GetValue<string>("Secrets:Stripe:ApiKey");
 
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
